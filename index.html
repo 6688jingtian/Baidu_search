@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jsonp跨域搜索</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			#wrap
+			{
+				height: 42px;
+				width: 502px;
+				margin: 0 auto;
+				position: relative;
+			}
+			input
+			{
+				height: 40px;
+				width: 500px;
+				border: 1px solid deepskyblue;
+				text-indent: 10px;
+			}
+			#list
+			{
+				width: 500px;
+				position: absolute;
+				top: 40px;
+				border: 1px solid deepskyblue;
+				border-top: none;
+				display: none;
+				background: pink;
+			}
+			ul li
+			{
+				height: 35px;
+				line-height: 35px;
+				width: 100%;
+				list-style: none;
+				text-indent: 10px;
+			}
+			a
+			{
+				text-decoration: none;
+				color: black;
+				display: block;
+			}
+			a:hover
+			{
+				background: yellow;
+			}
+			#top
+			{
+				height: 50px;
+				line-height: 50px;
+				width: 129px;
+				margin: 170px auto;
+				margin-bottom: 0;
+				color: blue;
+			}
+			body
+			{
+				background: greenyellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top"><h1>贵川搜索</h1></div>
+		<div id="wrap">
+			<input type="text" id="txt" />
+			<div id="list">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		 <script>
+		 	//调用了接口
+		 	var oTxt=document.getElementById('txt');
+		 	var oList=document.getElementById('list');
+		 	var oUl=oList.getElementsByTagName('ul')[0];
+		 	oTxt.onkeyup=function()
+		 	{
+		 		var val=this.value;
+		 		var oS=document.createElement('script');
+		 		oS.src='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+val+'&cb=fly';
+		 		document.body.appendChild(oS);
+		 		
+		 		if(val)
+		 		{
+		 		    oList.style.display='block';
+		 		}
+		 		else
+		 		{
+		 			oList.style.display='none';
+		 		}
+		 	}
+		 	
+		 	function fly(mJson)
+		 	{
+		 		oUl.innerHTML='';
+		 		for(var i=0;i<mJson.s.length;i++)
+		 		{
+		 			var oLi=document.createElement('li');
+		 			oLi.innerHTML='<a href="https://www.baidu.com/s?wd='+mJson.s[i]+'&cb=fly">'+mJson.s[i]+'</a>';
+		 			oUl.appendChild(oLi);
+		 		}
+		 	}
+		 </script>
+	</body>
+</html>
